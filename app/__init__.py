@@ -1,4 +1,7 @@
 from flask import Flask
+from app.routes import home
+from app.routes import home, dashboard
+
 
 def create_app(test_config=None):
   # set up app config
@@ -8,12 +11,13 @@ def create_app(test_config=None):
     SECRET_KEY='super_secret_key'
   )
 
-  @app.route('/')
-  def hello_world():
-    return 'Welcome to the Flask API!'
   @app.route('/hello')
   def hello():
     return 'hello to the new webpage!'
+  
+  # register routes
+  app.register_blueprint(home)
+  app.register_blueprint(dashboard)
   
   if __name__ == '__main__':
     app.run(debug=True)
